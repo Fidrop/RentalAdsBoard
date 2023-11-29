@@ -22,6 +22,4 @@ public class Ad implements Serializable {
     private String address;
     @Column(name = "description")
     private String description;
-
-
 }

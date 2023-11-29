@@ -13,9 +13,9 @@
         <property name="hikari.idleTimeout">120000</property>
         <!-- Database connection properties -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Rental_ads_board</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Rental_board</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">hdu</property>
+        <property name="hibernate.connection.password">123456</property>
 
         <!-- Other Hibernate properties -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
@@ -26,8 +26,8 @@
         <!-- Mapping files or annotated classes -->
         <!-- Add your entity classes or mapping files here for ex: entity used below -->
         <mapping class="com.example.RentalAdsBoard.entity.User"/>
-        <mapping class="com.example.RentalAdsBoard.entity.Ad"/>
-        <mapping class="com.example.RentalAdsBoard.entity.Picture"/>
+<!--        <mapping class="com.example.RentalAdsBoard.entity.Ad"/>-->
+<!--        <mapping class="com.example.RentalAdsBoard.entity.Picture"/>-->
 
     </session-factory>
 </hibernate-configuration>

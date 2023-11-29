@@ -5,7 +5,7 @@ spring:
   #Postgresql
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/Rental_ads_board
+    url: jdbc:postgresql://localhost:5432/Rental_board
     username: postgres
-    password: hdu
+    password: 123456
 

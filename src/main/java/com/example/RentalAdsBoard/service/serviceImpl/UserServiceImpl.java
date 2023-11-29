@@ -83,7 +83,8 @@ public class UserServiceImpl implements UserService  {
         user.setUsername(registerVo.getUsername());
         user.setPassword(passwordEncoder.encodePassword(registerVo.getPassword()));
         user.setEmail(registerVo.getEmail());
-        user.setRole(Integer.parseInt(registerVo.getRole()));
+        user.setStatus(Integer.parseInt(registerVo.getRole()));
+        user.setAvatar("666");
         try {
             if (userDao.getByUsername(registerVo.getUsername())!=null){
                 return new ResultVo().error();
@@ -113,7 +114,7 @@ public class UserServiceImpl implements UserService  {
     public ResultVo manageAuthority(AuthorityVo authorityVo) {
         try {
             User user=userDao.getByUsername(authorityVo.getUsername());
-            user.setRole(authorityVo.getLevel());
+            user.setStatus(authorityVo.getLevel());
             baseDao.save(user);
         }catch (Exception e){
             return new ResultVo().error();
