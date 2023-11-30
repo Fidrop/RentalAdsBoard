@@ -1,4 +1,4 @@
-package com.example.RentalAdsBoard.service.serviceImpl;
+package com.example.RentalAdsBoard.service.Impl;
 
 import com.example.RentalAdsBoard.dao.AdDao;
 import com.example.RentalAdsBoard.dao.BaseDao;
@@ -23,7 +23,7 @@ public class AdServiceImpl implements AdService {
         try {
             list=adDao.getUserADs(userId);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Get ad list failed");
         }
         return new ResultVo().success(list);
     }
@@ -33,7 +33,7 @@ public class AdServiceImpl implements AdService {
         try {
             list=adDao.getAdsList(batchSize);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Get latest ad list failed");
         }
         return new ResultVo().success(list);
     }
@@ -43,7 +43,7 @@ public class AdServiceImpl implements AdService {
         try {
             ad=adDao.getById(adId);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Get ad list by id failed");
         }
         return new ResultVo().success(ad);
     }
@@ -57,7 +57,7 @@ public class AdServiceImpl implements AdService {
         try {
             baseDao.save(ad);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Save or update failed");
         }
         return new ResultVo().success(ad);
     }
@@ -67,7 +67,7 @@ public class AdServiceImpl implements AdService {
         try {
             baseDao.delete(adDao.getById(adId));
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Delete failed");
         }
         return new ResultVo().success();
     }

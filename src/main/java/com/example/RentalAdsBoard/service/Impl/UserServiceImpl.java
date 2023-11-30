@@ -1,4 +1,4 @@
-package com.example.RentalAdsBoard.service.serviceImpl;
+package com.example.RentalAdsBoard.service.Impl;
 
 import com.example.RentalAdsBoard.dao.BaseDao;
 import com.example.RentalAdsBoard.dao.UserDao;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService  {
             user=userDao.getById(userId);
             user.setPassword(null);
         } catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Get user by id failed");
         }
         return new ResultVo().success(user);
     }
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService  {
             user.setEmail(userVo.getEmail());
             baseDao.save(user);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Update user by id failed");
         }
         return new ResultVo().success(user);
     }
@@ -50,10 +50,10 @@ public class UserServiceImpl implements UserService  {
             user=userDao.getById(userVo.getUserId());
             String newPassword= user.getPassword();
             if (passwordEncoder.matchPassword(newPassword,user.getPassword())) user.setPassword(newPassword);
-            else return new ResultVo().error();
+            else return new ResultVo().error("Update user pwd failed 1");
             baseDao.save(user);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Update user pwd failed 2");
         }
         return new ResultVo().success(user);
     }
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService  {
         try {
             baseDao.delete(userDao.getById(userId));
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Delete user by id failed");
         }
         return new ResultVo().success();
     }
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService  {
         try {
             list=userDao.getUsersList();
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Get user list failed");
         }
         return new ResultVo().success(list);
     }
@@ -87,11 +87,11 @@ public class UserServiceImpl implements UserService  {
         user.setAvatar("666");
         try {
             if (userDao.getByUsername(registerVo.getUsername())!=null){
-                return new ResultVo().error();
+                return new ResultVo().error("Null username");
             }
             baseDao.save(user);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Register failed");
         }
         return new ResultVo().success(user);
     }
@@ -99,15 +99,22 @@ public class UserServiceImpl implements UserService  {
     @Override
     public ResultVo login(LoginVo loginVo){
         User user;
+        String pwd;
         try {
             user=userDao.getByUsername(loginVo.getUsername());
-            if (user==null) return new ResultVo().error();
+            if (user==null) return new ResultVo().error("Null user");
+            pwd = user.getPassword();
             user.setPassword(null);
         } catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Login failed");
         }
-        return passwordEncoder.matchPassword(loginVo.getPassword(),user.getPassword())?
-                new ResultVo().success(user):new ResultVo().error();
+        System.out.println(loginVo.getPassword());
+        System.out.println(pwd);
+        if(passwordEncoder.matchPassword(loginVo.getPassword(),pwd)){
+            return new ResultVo().success(user);
+        }
+        else
+            return new ResultVo().error("Wrong password");
     }
 
     @Override
@@ -117,7 +124,7 @@ public class UserServiceImpl implements UserService  {
             user.setStatus(authorityVo.getLevel());
             baseDao.save(user);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Manage failed");
         }
         return new ResultVo().success();
     }

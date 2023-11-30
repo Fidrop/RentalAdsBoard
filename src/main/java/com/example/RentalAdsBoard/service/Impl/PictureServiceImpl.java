@@ -1,4 +1,4 @@
-package com.example.RentalAdsBoard.service.serviceImpl;
+package com.example.RentalAdsBoard.service.Impl;
 
 import com.example.RentalAdsBoard.dao.BaseDao;
 import com.example.RentalAdsBoard.dao.PictureDao;
@@ -22,7 +22,7 @@ public class PictureServiceImpl implements PictureService {
         try {
             picture=pictureDao.getPictureById(pictureId);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Get pic failed");
         }
         return new ResultVo().success(picture);
     }
@@ -32,7 +32,7 @@ public class PictureServiceImpl implements PictureService {
         try {
             list=pictureDao.getAdPictureList(adId);
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Get pic list failed");
         }
         return new ResultVo().success(list);
     }
@@ -42,7 +42,7 @@ public class PictureServiceImpl implements PictureService {
         try {
             baseDao.delete(pictureDao.getPictureById(pictureId));
         }catch (Exception e){
-            return new ResultVo().error();
+            return new ResultVo().error("Delete pic failed");
         }
         return new ResultVo().success();
     }
